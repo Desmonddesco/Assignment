@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Statistics</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>_Surveys</h1>
+        <div class="header-buttons">
+            <a href="index.html" class="label-button">Fill Out Survey</a>
+            <a href="survey_results.html" class="label-button">View Survey Results</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>Survey Results</h1>
+        <div class="statistics-container">
+            <div class="stat">
+                <h2>Total Surveys Completed</h2>
+                <p id="totalCount">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2>Average Age of Participants</h2>
+                <p id="averageAge">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2>Oldest Person Participated</h2>
+                <p id="oldestPerson">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2>Youngest Person Participated</h2>
+                <p id="youngestPerson">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2></h2>
+                <p></p>
+            </div>
+            <div class="stat">
+                <h2></h2>
+                <p></p>
+            </div>
+            <div class="stat">
+                <h2>Percentage of People Who Like Pizza</h2>
+                <p id="pizzaPercentage">Loading...</p>
+            </div>
+
+            
+            <div class="stat">
+                <h2>Percentage of People Who Like Pasta</h2>
+                <p id="pastaPercentage">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2>Percentage of People Who Like Pap and Wors</h2>
+                <p id="papPercentage">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2></h2>
+                <p></p>
+            </div>
+            <div class="stat">
+                <h2></h2>
+                <p></p>
+            </div>
+            <div class="stat">
+                <h2>Average Rating for People Who Like to watch movies</h2>
+                <p id="avgMoviesRating">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2>Average Rating for People Who Like to listen to radio</h2>
+                <p id="avgRadioRating">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2>Average Rating for People Who Like to Eat Out</h2>
+                <p id="avgEatOutRating">Loading...</p>
+            </div>
+            <div class="stat">
+                <h2>Average Rating for People Who Like to watch TV</h2>
+                <p id="avgTVRating">Loading...</p>
+            </div>
+        </div>
+    </div> <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+ https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+
+
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDT-MEjGBHzh6nTPQALx9K0wPlzMDUwFV8",
+  authDomain: "survey-111.firebaseapp.com",
+  projectId: "survey-111",
+  storageBucket: "survey-111.appspot.com",
+  messagingSenderId: "527261368849",
+  appId: "1:527261368849:web:bb7aae2a8a6f7f9b36a7b0",
+  measurementId: "G-BW40PTHE6M"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    
+ 
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        db.settings({timestampsInSnapshots:true});
+        firebase.analytics();
+
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

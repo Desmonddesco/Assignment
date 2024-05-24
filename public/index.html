@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Survey</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>_Surveys</h1>
+        <div class="header-buttons">
+            <a href="index.html" class="label-button">Fill Out Survey</a>
+            <a href="survey_results.html" class="label-button">View Survey Results</a>
+        </div>
+    </header>
+    
+    <form id="surveyForm" action="/submit-form" method="post">
+        <h2>Personal Details:</h2>
+        <label for="name">Full Names</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required><br>
+
+        <label for="contact_number">Contact Number</label>
+        <input type="number" id="contact_number" name="contact_number" maxlength="10" required><br>
+
+        <div class="favourite-food-container">
+            <h2>Favourite Food</h2>
+            <div class="favourite-food">
+                <label><input type="checkbox" name="food" value="Pizza"> Pizza</label>
+                <label><input type="checkbox" name="food" value="Pasta"> Pasta</label>
+                <label><input type="checkbox" name="food" value="Pap&Wors"> Pap and Wors</label>
+                <label><input type="checkbox" name="food" value="Other"> Other</label>
+            </div>
+        </div>
+
+        <p>Please rate your level of agreement on a scale from 1 to 5, with 1 being "strongly agree" and 5 being "strongly disagree".</p>
+        
+        <table id="ratingTable">
+            <tr>
+                <td></td> <!-- Empty cell before the ratings -->
+                <td><strong>Strongly Agree</strong></td>
+                <td><strong>Agree</strong></td>
+                <td><strong>Neutral</strong></td>
+                <td><strong>Disagree</strong></td>
+                <td><strong>Strongly Disagree</strong></td>
+            </tr>
+            <tr>
+                <td>I like to watch movies</td>
+                <td><input type="radio" name="watch_movies" value="1"></td>
+                <td><input type="radio" name="watch_movies" value="2"></td>
+                <td><input type="radio" name="watch_movies" value="3"></td>
+                <td><input type="radio" name="watch_movies" value="4"></td>
+                <td><input type="radio" name="watch_movies" value="5"></td>
+            </tr>
+            <tr>
+                <td>I like to listen to radio</td> 
+                <td><input type="radio" name="listen_radio" value="1"></td>
+                <td><input type="radio" name="listen_radio" value="2"></td>
+                <td><input type="radio" name="listen_radio" value="3"></td>
+                <td><input type="radio" name="listen_radio" value="4"></td>
+                <td><input type="radio" name="listen_radio" value="5"></td>
+            </tr>
+            <tr>
+                <td>I like to eat out</td> 
+                <td><input type="radio" name="eat_out" value="1"></td>
+                <td><input type="radio" name="eat_out" value="2"></td>
+                <td><input type="radio" name="eat_out" value="3"></td>
+                <td><input type="radio" name="eat_out" value="4"></td>
+                <td><input type="radio" name="eat_out" value="5"></td>
+            </tr>
+            <tr>
+                <td>I like to watch TV</td> 
+                <td><input type="radio" name="watch_tv" value="1"></td>
+                <td><input type="radio" name="watch_tv" value="2"></td>
+                <td><input type="radio" name="watch_tv" value="3"></td>
+                <td><input type="radio" name="watch_tv" value="4"></td>
+                <td><input type="radio" name="watch_tv" value="5"></td>
+            </tr>
+        </table>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="results"></div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+ https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDT-MEjGBHzh6nTPQALx9K0wPlzMDUwFV8",
+            authDomain: "survey-111.firebaseapp.com",
+            projectId: "survey-111",
+            storageBucket: "survey-111.appspot.com",
+            messagingSenderId: "527261368849",
+            appId: "1:527261368849:web:bb7aae2a8a6f7f9b36a7b0",
+            measurementId: "G-BW40PTHE6M"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        db.settings({timestampsInSnapshots:true});
+    </script>
+    <script>
+        document.getElementById("date").addEventListener("change", function() {
+            var dob = new Date(this.value);
+            var today = new Date();
+            var age = today.getFullYear() - dob.getFullYear();
+            if (today.getMonth() < dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            if (age < 5 || age > 120) {
+                alert("Age must be between 5 and 120.");
+                document.getElementById("date_of_birth").value = "";
+            }
+        });
+    </script>
+    
+    <script>
+        document.getElementById("contact_number").addEventListener("change", function() {
+            var number = this.value.trim();
+            if (number.length !== 10 || isNaN(number)) {
+                alert("Contact number must be exactly 10 digits.");
+                this.value = "";
+            }
+        });
+    </script>
+    <script>
+        document.getElementById("surveyForm").addEventListener("submit", function(event) {
+            var foodCheckboxes = document.querySelectorAll('input[name="food"]:checked');
+            if (foodCheckboxes.length === 0) {
+                alert("Please select at least one favorite food.");
+                event.preventDefault();
+            }
+        });
+    </script>
+    <script>
+        document.getElementById("surveyForm").addEventListener("submit", function(event) {
+            var ratingRows = document.querySelectorAll("#ratingTable tr:not(:first-child)");
+            for (var i = 0; i < ratingRows.length; i++) {
+                var radios = ratingRows[i].querySelectorAll('input[type="radio"]:checked');
+                if (radios.length === 0) {
+                    alert("Please select a rating for each question.");
+                    event.preventDefault();
+                    return;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

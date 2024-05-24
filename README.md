@@ -29,8 +29,6 @@ responses (survey.js).
 
 6. Firebase:
 • Used for hosting the web Apllication.
-SURVEY ASSIGNMENT
-MUSHIANA DESMOND
 • Firebase JavaScript SDK is included in the HTML file to initialize Firebase 
 and interact with Firebase services.
 

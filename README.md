@@ -64,3 +64,5 @@ Overall, this project is a fun and interactive way to gather information from
 people through online surveys. It uses a combination of HTML, CSS, JavaScript,
 Node.js, MySQL, and Firebase to create a user-friendly experience for both filling
 out surveys and analyzing the collected data
+
+Firebase demo link, Database is not working on demo, https://survey-111.web.app/
